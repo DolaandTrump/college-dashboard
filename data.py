@@ -95,6 +95,7 @@ pie_fig = px.pie(
     template="plotly_white",
     color_discrete_sequence=px.colors.qualitative.Set3
 )
+pie_fig.update_traces(hovertemplate='District=%{label}<br>No. of Colleges=%{value}<extra></extra>')
 
 # Display the two charts side by side using columns
 chart_col1, chart_col2 = st.columns(2)
@@ -129,7 +130,7 @@ if selected_college != "Select College":
             fig_data = px.bar(
                 x=['Strength', 'Admission', 'Vacancy'],
                 y=[strength, admission, vacancy],
-                labels={'x': 'Category', 'y': 'Count'},
+                labels={'x': '', 'y': 'Number of Seats'},
                 title="Student Data",
                 text_auto=True,
                 template='plotly_white',
@@ -151,6 +152,9 @@ if selected_college != "Select College":
                 color_discrete_sequence=['#2980b9', '#e74c3c']
             )
             dcol2.plotly_chart(fig_gender, use_container_width=True, config=plot_config)
+            fig_gender.update_traces(
+        hovertemplate='Gender = %{label}<br>No. of Students = %{value}<extra></extra>'
+    )
         else:
             missing_data_messages.append("Gender data not available")
 
@@ -163,6 +167,7 @@ if selected_college != "Select College":
                 template='plotly_white',
                 color_discrete_sequence=px.colors.qualitative.Pastel
             )
+            fig_category.update_traces(hovertemplate='Category = %{label}<br>No. of Students = %{value}<extra></extra>')
             dcol3.plotly_chart(fig_category, use_container_width=True, config=plot_config)
         else:
             missing_data_messages.append("Category data not available")
